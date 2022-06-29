@@ -1,0 +1,13 @@
+{
+    "name": "iqbal/php-jwt",
+    "description": "Belajar Session Managemen PHPt dengan JWT",
+    "authors": [
+        {
+            "name": "iqbal",
+            "email": "iqbalmenggala29@gmail.com"
+        }
+    ],
+    "require": {
+        "firebase/php-jwt": "^5.5"
+    }
+}
