@@ -1,5 +1,8 @@
 <?php
 
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
 class Session
 {
 
@@ -19,10 +22,10 @@ class SessionManager
 
             $payload = [
                 "username" => $username,
-                "role" => "customer"
+                "role" => "admin"
             ];
 
-            $jwt = \Firebase\JWT\JWT::encode($payload, SessionManager::$SECRET_KEY, 'HS256');
+            $jwt = JWT::encode($payload, self::$SECRET_KEY, "HS256");
 
             setcookie("X-IQBAL-SESSION", $jwt);
 
@@ -38,7 +41,7 @@ class SessionManager
             $jwt = $_COOKIE['X-IQBAL-SESSION'];
 
             try {
-                $payload = \Firebase\JWT\JWT::decode($jwt, SessionManager::$SECRET_KEY, ['HS256']);
+                $payload = JWT::decode($jwt, new Key(self::$SECRET_KEY, "HS256"));
                 return new Session(username: $payload->username, role: $payload->role);
             } catch (Exception $exception) {
                 throw new Exception("User is not login");
